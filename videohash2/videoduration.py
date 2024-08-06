@@ -2,21 +2,23 @@ import re
 import shutil
 from subprocess import PIPE, Popen
 from typing import Optional
-from .exceptions import DidNotSupplyPathOrUrl
-from .videocopy import (_create_required_dirs_and_check_for_errors,
-                    _copy_video_to_video_dir)
+from .exceptions import DidNotSupplyPathOrUrl, FFmpegUnableToGetDuration
+from .videocopy import (
+    _create_required_dirs_and_check_for_errors,
+    _copy_video_to_video_dir,
+)
 
 # Module to determine the length of video.
 # The length is found by the FFmpeg, the output of video_duration is in seconds.
 
 
-def video_duration(url: Optional[str] = None,
-                   path: Optional[str] = None,
-                   storage_path: Optional[str] = None,
-                   do_not_copy: Optional[bool] = True,
-                   ffmpeg_path: Optional[str] = None
-                   ) -> float:
-    
+def video_duration(
+    url: Optional[str] = None,
+    path: Optional[str] = None,
+    storage_path: Optional[str] = None,
+    do_not_copy: Optional[bool] = True,
+    ffmpeg_path: Optional[str] = None,
+) -> float:
     """
     Retrieve the exact video duration as echoed by the FFmpeg and return
     the duration in seconds. Maximum duration supported is 999 hours, above
@@ -41,7 +43,7 @@ def video_duration(url: Optional[str] = None,
         raise DidNotSupplyPathOrUrl(
             "You must specify either a path or an URL of the video."
         )
-    
+
     if path and url:
         raise ValueError("Specify either a path or an URL and NOT both.")
 
@@ -50,16 +52,15 @@ def video_duration(url: Optional[str] = None,
 
     if url:
         video_dir, video_download_dir = _create_required_dirs_and_check_for_errors(
-            url=url,
-            storage_path=storage_path
-            )[0:2]
+            url=url, storage_path=storage_path
+        )[0:2]
 
         path = _copy_video_to_video_dir(
             video_dir,
             video_download_dir,
             do_not_copy=do_not_copy,
             download_worst=True,
-            url=url
+            url=url,
         )
 
     command = f'"{ffmpeg_path}" -i "{path}"'
@@ -73,11 +74,13 @@ def video_duration(url: Optional[str] = None,
 
     if match:
         duration_string = match.group(1)
+    else:
+        raise FFmpegUnableToGetDuration()
 
     hours, minutes, seconds = duration_string.strip().split(":")
 
     if url and path:
-        cutPath = path[:path.find("/temp_storage_dir")]
+        cutPath = path[: path.find("/temp_storage_dir")]
 
         try:
             shutil.rmtree(cutPath)

@@ -35,6 +35,7 @@ def does_path_exists(path: str) -> bool:
         # it's file
         return False
 
+
 def create_and_return_temporary_directory() -> str:
     """
     create a temporary directory where we can store the video, frames and the
@@ -47,6 +48,7 @@ def create_and_return_temporary_directory() -> str:
     path = os.path.join(tempfile.mkdtemp(), ("temp_storage_dir" + os.path.sep))
     Path(path).mkdir(parents=True, exist_ok=True)
     return path
+
 
 def _get_task_uid() -> str:
     """

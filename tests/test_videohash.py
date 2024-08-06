@@ -144,5 +144,6 @@ def test_all():
         )
         VideoHash(path=path)
 
+
 if __name__ == "__main__":
     test_all()
