@@ -5,18 +5,22 @@ from pathlib import Path
 from typing import Optional
 from .exceptions import DidNotSupplyPathOrUrl, StoragePathDoesNotExist
 from .downloader import Download
-from .utils import (get_list_of_all_files_in_dir,
-                    does_path_exists,
-                    create_and_return_temporary_directory,
-                    _get_task_uid)
+from .utils import (
+    get_list_of_all_files_in_dir,
+    does_path_exists,
+    create_and_return_temporary_directory,
+    _get_task_uid,
+)
+
 
 def _copy_video_to_video_dir(
-        video_dir: str,
-        video_download_dir: str,
-        do_not_copy: Optional[bool] = True,
-        download_worst: bool = False,
-        url: Optional[str] = None,
-        path: Optional[str] = None) -> str:
+    video_dir: str,
+    video_download_dir: str,
+    do_not_copy: Optional[bool] = True,
+    download_worst: bool = False,
+    url: Optional[str] = None,
+    path: Optional[str] = None,
+) -> str:
     """
     Copy the video from the path to the video directory.
 
@@ -80,10 +84,11 @@ def _copy_video_to_video_dir(
 
     return video_path
 
+
 def _create_required_dirs_and_check_for_errors(
-        url: Optional[str] = None,
-        path: Optional[str] = None,
-        storage_path: Optional[str] = None
+    url: Optional[str] = None,
+    path: Optional[str] = None,
+    storage_path: Optional[str] = None,
 ) -> tuple:
     """
     Creates important directories before the main processing starts.
@@ -119,22 +124,16 @@ def _create_required_dirs_and_check_for_errors(
     if not storage_path:
         storage_path = create_and_return_temporary_directory()
     if not does_path_exists(storage_path):
-        raise StoragePathDoesNotExist(
-            f"Storage path '{storage_path}' does not exist."
-        )
+        raise StoragePathDoesNotExist(f"Storage path '{storage_path}' does not exist.")
 
     os_path_sep = os.path.sep
 
-    storage_path = os.path.join(
-        storage_path, (f"{_get_task_uid()}{os_path_sep}")
-    )
+    storage_path = os.path.join(storage_path, (f"{_get_task_uid()}{os_path_sep}"))
 
     video_dir = os.path.join(storage_path, (f"video{os_path_sep}"))
     Path(video_dir).mkdir(parents=True, exist_ok=True)
 
-    video_download_dir = os.path.join(
-        storage_path, (f"downloadedvideo{os_path_sep}")
-    )
+    video_download_dir = os.path.join(storage_path, (f"downloadedvideo{os_path_sep}"))
     Path(video_download_dir).mkdir(parents=True, exist_ok=True)
 
     frames_dir = os.path.join(storage_path, (f"frames{os_path_sep}"))
@@ -149,8 +148,14 @@ def _create_required_dirs_and_check_for_errors(
     horizontally_concatenated_image_dir = os.path.join(
         storage_path, (f"horizontally_concatenated_image{os_path_sep}")
     )
-    Path(horizontally_concatenated_image_dir).mkdir(
-        parents=True, exist_ok=True
-    )
+    Path(horizontally_concatenated_image_dir).mkdir(parents=True, exist_ok=True)
 
-    return storage_path, video_dir, video_download_dir, frames_dir, tiles_dir, collage_dir, horizontally_concatenated_image_dir
+    return (
+        storage_path,
+        video_dir,
+        video_download_dir,
+        frames_dir,
+        tiles_dir,
+        collage_dir,
+        horizontally_concatenated_image_dir,
+    )

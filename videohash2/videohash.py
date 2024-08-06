@@ -16,10 +16,12 @@ from .utils import (
     create_and_return_temporary_directory,
     does_path_exists,
     get_list_of_all_files_in_dir,
-    _get_task_uid
+    _get_task_uid,
 )
-from .videocopy import (_create_required_dirs_and_check_for_errors,
-    _copy_video_to_video_dir)
+from .videocopy import (
+    _create_required_dirs_and_check_for_errors,
+    _copy_video_to_video_dir,
+)
 from .videoduration import video_duration
 
 
@@ -79,27 +81,26 @@ class VideoHash:
 
         self.task_uid = _get_task_uid()
 
-        (self.storage_path,
-         self.video_dir,
-         self.video_download_dir,
-         self.frames_dir,
-         self.tiles_dir,
-         self.collage_dir,
-         self.horizontally_concatenated_image_dir
+        (
+            self.storage_path,
+            self.video_dir,
+            self.video_download_dir,
+            self.frames_dir,
+            self.tiles_dir,
+            self.collage_dir,
+            self.horizontally_concatenated_image_dir,
         ) = _create_required_dirs_and_check_for_errors(
-            url=self.url,
-            path=self.path,
-            storage_path=self.storage_path
+            url=self.url, path=self.path, storage_path=self.storage_path
         )
 
         self.video_path = _copy_video_to_video_dir(
-             video_dir=self.video_dir,
-             video_download_dir=self.video_download_dir,
-             do_not_copy=self.do_not_copy,
-             download_worst=self.download_worst,
-             url=self.url,
-             path=self.path
-         )
+            video_dir=self.video_dir,
+            video_download_dir=self.video_download_dir,
+            do_not_copy=self.do_not_copy,
+            download_worst=self.download_worst,
+            url=self.url,
+            path=self.path,
+        )
 
         self.video_duration = video_duration(path=self.video_path)
 

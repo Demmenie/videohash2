@@ -117,7 +117,7 @@ class FramesExtractor:
         video_path: Optional[str] = None,
         frames: int = 3,
         ffmpeg_path: Optional[str] = None,
-        video_length: float = 2
+        video_length: float = 2,
     ) -> list:
         """
         Detects the the amount of cropping to remove black bars.
@@ -148,7 +148,6 @@ class FramesExtractor:
             7200,
             14400,
         ]
-        
 
         crop_list = []
 
@@ -162,7 +161,9 @@ class FramesExtractor:
 
             command = f'"{ffmpeg_path}" -ss {start_time} -i "{video_path}" -vframes {frames} -vf cropdetect -f null -'
 
-            process = Popen(shlex.split(command), stdin=DEVNULL, stdout=PIPE, stderr=PIPE)
+            process = Popen(
+                shlex.split(command), stdin=DEVNULL, stdout=PIPE, stderr=PIPE
+            )
 
             output, error = process.communicate()
 
@@ -205,8 +206,10 @@ class FramesExtractor:
             output_dir = shlex.quote(self.output_dir)
 
         crop = FramesExtractor.detect_crop(
-            video_path=video_path, frames=3, ffmpeg_path=ffmpeg_path,
-            video_length=video_length
+            video_path=video_path,
+            frames=3,
+            ffmpeg_path=ffmpeg_path,
+            video_length=video_length,
         )
 
         command = [
@@ -218,7 +221,7 @@ class FramesExtractor:
             "144x144",
             "-r",
             str(self.interval),
-            str(output_dir)+"video_frame_%07d.jpeg",
+            str(output_dir) + "video_frame_%07d.jpeg",
         ]
 
         process = Popen(command, stdin=DEVNULL, stdout=PIPE, stderr=PIPE)
