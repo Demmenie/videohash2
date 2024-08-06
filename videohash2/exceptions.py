@@ -66,3 +66,9 @@ class FFmpegFailedToExtractFrames(FFmpegError):
     """FFmpeg failed to extract any frame at all. Maybe the input video is damaged or corrupt."""
 
     pass
+
+
+class FFmpegUnableToGetDuration(FFmpegError):
+    """FFmpeg failed to get the duration. Maybe the input video is damaged or corrupt."""
+
+    pass

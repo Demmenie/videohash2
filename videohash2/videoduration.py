@@ -2,7 +2,7 @@ import re
 import shutil
 from subprocess import PIPE, Popen
 from typing import Optional
-from .exceptions import DidNotSupplyPathOrUrl
+from .exceptions import DidNotSupplyPathOrUrl, FFmpegUnableToGetDuration
 from .videocopy import (_create_required_dirs_and_check_for_errors,
                     _copy_video_to_video_dir)
 
@@ -73,6 +73,8 @@ def video_duration(url: Optional[str] = None,
 
     if match:
         duration_string = match.group(1)
+    else:
+        raise FFmpegUnableToGetDuration()
 
     hours, minutes, seconds = duration_string.strip().split(":")
 

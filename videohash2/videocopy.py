@@ -51,9 +51,9 @@ def _copy_video_to_video_dir(
         video_path = os.path.join(video_dir, (f"video.{extension}"))
 
         if do_not_copy:
-            os.symlink(path, video_path)
+            os.symlink(os.path.abspath(path), video_path)
         else:
-            shutil.copyfile(path, video_path)
+            shutil.copyfile(os.path.abspath(path), video_path)
 
     if url:
 
@@ -74,9 +74,9 @@ def _copy_video_to_video_dir(
         video_path = f"{video_dir}video.{extension}"
 
         if do_not_copy:
-            os.symlink(downloaded_file, video_path)
+            os.symlink(os.path.abspath(downloaded_file), video_path)
         else:
-            shutil.copyfile(downloaded_file, video_path)
+            shutil.copyfile(os.path.abspath(downloaded_file), video_path)
 
     return video_path
 
