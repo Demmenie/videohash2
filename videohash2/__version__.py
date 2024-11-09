@@ -6,7 +6,7 @@ __description__ = (
 )
 
 __url__ = "https://demmenie.github.io/videohash2/"
-__version__ = "3.2.2"
+__version__ = "3.2.3"
 __status__ = "production"
 __author__ = "Akash Mahanty and Chico Demmenie"
 __author_email__ = "cdemmenie@gmail.com"
