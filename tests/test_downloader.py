@@ -26,7 +26,17 @@ def test_all():
     if total_files == 0:
         raise Exception("File not downloaded. Url is %s ")
 
+    Download(url=url, output_dir=_dir, yt_dlp_options="--mark-watched")
+    file_list = get_list_of_all_files_in_dir(_dir)
+    total_files = len(file_list)
+    if total_files == 0:
+        raise Exception("File not downloaded. Url is %s ")
+
     url = "https://www.youtube.com/watch?v=ThisVideoDN"
     _dir = create_and_return_temporary_directory()
     with pytest.raises(DownloadFailed):
         Download(url=url, output_dir=_dir)  # non downloadable
+        file_list = get_list_of_all_files_in_dir(_dir)
+        total_files = len(file_list)
+        if total_files != 0:
+            raise Exception("File not deleted. Url is %s ")
