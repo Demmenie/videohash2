@@ -1,5 +1,6 @@
 from shutil import which
 from subprocess import PIPE, Popen
+from typing import Optional
 
 from .exceptions import DownloadFailed, DownloadOutPutDirDoesNotExist
 from .utils import does_path_exists, get_list_of_all_files_in_dir
@@ -20,6 +21,7 @@ class Download:
         self,
         url: str,
         output_dir: str,
+        yt_dlp_extra_options: Optional[str] = None,
         worst: bool = True,
     ) -> None:
         """
@@ -40,6 +42,7 @@ class Download:
         self.url = url
         self.output_dir = output_dir
         self.worst = worst
+        self.yt_dlp_extra_options= yt_dlp_extra_options
 
         if not does_path_exists(self.output_dir):
             raise DownloadOutPutDirDoesNotExist(
@@ -68,6 +71,7 @@ class Download:
             + '"'
             + self.url
             + '"'
+            + (f' {self.yt_dlp_extra_options} ' if self.yt_dlp_extra_options else '')
             + " -o "
             + '"'
             + self.output_dir

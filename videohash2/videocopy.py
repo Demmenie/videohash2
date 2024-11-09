@@ -13,6 +13,7 @@ from .utils import (get_list_of_all_files_in_dir,
 def _copy_video_to_video_dir(
         video_dir: str,
         video_download_dir: str,
+        yt_dlp_extra_options: Optional[str],
         do_not_copy: Optional[bool] = True,
         download_worst: bool = False,
         url: Optional[str] = None,
@@ -61,6 +62,7 @@ def _copy_video_to_video_dir(
             url,
             video_download_dir,
             worst=download_worst,
+            yt_dlp_extra_options=yt_dlp_extra_options,
         )
 
         downloaded_file = get_list_of_all_files_in_dir(video_download_dir)[0]
