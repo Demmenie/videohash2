@@ -53,7 +53,7 @@ def video_duration(url: Optional[str] = None,
         video_dir, video_download_dir = _create_required_dirs_and_check_for_errors(
             url=url,
             storage_path=storage_path
-            )[0:2]
+            )[1:3]
 
         path = _copy_video_to_video_dir(
             video_dir,
