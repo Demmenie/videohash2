@@ -61,7 +61,7 @@ def video_duration(url: Optional[str] = None,
             do_not_copy=do_not_copy,
             download_worst=True,
             url=url,
-            yt_dlp_extra_options=yt_dlp_options
+            yt_dlp_options=yt_dlp_options
         )
 
     command = f'"{ffmpeg_path}" -i "{path}"'

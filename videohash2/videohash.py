@@ -77,7 +77,7 @@ class VideoHash:
         self.download_worst = download_worst
         self.do_not_copy = do_not_copy
         self.frame_interval = frame_interval
-        self.yt_dlp_extra_options=yt_dlp_extra_options
+        self.yt_dlp_options=yt_dlp_options
 
         self.task_uid = _get_task_uid()
 
