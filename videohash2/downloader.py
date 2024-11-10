@@ -63,12 +63,11 @@ class Download:
         """
         worst = " "
         if self.worst:
-            worst = " -f worst "
+            worst = " -f worstvideo "
 
         command = (
             f'"{self.yt_dlp_path}"'
             + worst
-            + " "
             + '"'
             + self.url
             + '"'
