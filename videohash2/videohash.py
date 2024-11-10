@@ -37,7 +37,7 @@ class VideoHash:
         download_worst: bool = False,
         frame_interval: Union[int, float] = 1,
         do_not_copy: Optional[bool] = True,
-        yt_dlp_extra_options:Optional[str] = None
+        yt_dlp_options:Optional[str] = None
     ) -> None:
         """
         :param path: Absolute path of the input video file.
@@ -101,7 +101,7 @@ class VideoHash:
              download_worst=self.download_worst,
              url=self.url,
              path=self.path,
-             yt_dlp_extra_options=self.yt_dlp_extra_options
+             yt_dlp_options=self.yt_dlp_options
          )
 
         self.video_duration = video_duration(path=self.video_path)
