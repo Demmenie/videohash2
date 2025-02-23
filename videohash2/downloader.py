@@ -71,7 +71,7 @@ class Download:
             + '"'
             + self.url
             + '"'
-            #+ (f' {self.yt_dlp_options} ' if self.yt_dlp_options else '')
+            + (f' {self.yt_dlp_options} ' if self.yt_dlp_options else '')
             + " -o "
             + '"'
             + self.output_dir

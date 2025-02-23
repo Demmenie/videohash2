@@ -78,12 +78,12 @@ def video_duration(url: Optional[str] = None,
 
     hours, minutes, seconds = duration_string.strip().split(":")
 
-    if url and path:
-        cutPath = path[:path.find("/temp_storage_dir")]
+    # if url and path:
+    #     cutPath = path[:path.find("/temp_storage_dir")]
 
-        try:
-            shutil.rmtree(cutPath)
-        except OSError as e:
-            print("Error: %s - %s." % (e.filename, e.strerror))
+    #     try:
+    #         shutil.rmtree(cutPath)
+    #     except OSError as e:
+    #         print("Error: %s - %s." % (e.filename, e.strerror))
 
     return float(hours) * 60.00 * 60.00 + float(minutes) * 60.00 + float(seconds)
