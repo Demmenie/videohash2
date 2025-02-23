@@ -81,7 +81,7 @@ def test_all():
     assert videohash1 - videohash3 != 2
 
     source4 = "https://www.youtube.com/watch?v=_T8cn2J13-4"
-    videohash4 = VideoHash(url=source4, download_worst=True)
+    videohash4 = VideoHash(url=source4, download_worst=True, do_not_copy=True)
     hash4 = videohash4.hash
 
     assert hash4 != hash1
