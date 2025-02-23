@@ -204,6 +204,11 @@ class FramesExtractor:
             video_path = shlex.quote(self.video_path)
             output_dir = shlex.quote(self.output_dir)
 
+        # Debug: Print paths and command
+        print(f"FFmpeg path: {ffmpeg_path}")
+        print(f"Video path: {video_path}")
+        print(f"Output directory: {output_dir}")
+
         crop = FramesExtractor.detect_crop(
             video_path=video_path, frames=3, ffmpeg_path=ffmpeg_path,
             video_length=video_length
@@ -226,6 +231,10 @@ class FramesExtractor:
 
         ffmpeg_output = output.decode()
         ffmpeg_error = error.decode()
+
+        # Debug: Print FFmpeg output and error
+        print(f"FFmpeg output: {ffmpeg_output}")
+        print(f"FFmpeg error: {ffmpeg_error}")
 
         if len(os.listdir(self.output_dir)) == 0:
 
