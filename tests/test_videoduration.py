@@ -9,7 +9,6 @@ this_dir = os.path.dirname(os.path.realpath(__file__))
 
 
 def test_video_duration():
-
     video_path = (
         this_dir
         + os.path.sep

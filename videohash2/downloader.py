@@ -1,8 +1,9 @@
+import os
 from shutil import which
 from subprocess import PIPE, Popen
 
 from .exceptions import DownloadFailed, DownloadOutPutDirDoesNotExist
-from .utils import does_path_exists, get_list_of_all_files_in_dir
+from .utils import get_list_of_all_files_in_dir
 
 # Python module to download the video from the input URL.
 # Uses yt-dlp to download the video.
@@ -41,7 +42,7 @@ class Download:
         self.output_dir = output_dir
         self.worst = worst
 
-        if not does_path_exists(self.output_dir):
+        if not os.path.exists(self.output_dir):
             raise DownloadOutPutDirDoesNotExist(
                 f"No directory found at '{self.output_dir}' for storing the downloaded video. Can not download the video."
             )

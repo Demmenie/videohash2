@@ -89,9 +89,7 @@ def validate_image(number_tiles):
     if number_tiles > TILE_LIMIT or number_tiles < 2:
         raise ValueError(
             "Number of tiles must be between 2 and {} (you \
-                          asked for {}).".format(
-                TILE_LIMIT, number_tiles
-            )
+                          asked for {}).".format(TILE_LIMIT, number_tiles)
         )
 
 
@@ -123,7 +121,6 @@ def slicer(
     col=None,
     row=None,
 ):
-
     Image.MAX_IMAGE_PIXELS = None
 
     im = Image.open(filename)

@@ -1,18 +1,17 @@
+import math
 import os
 import re
-import math
 import shlex
 from shutil import which
-from subprocess import PIPE, DEVNULL, Popen, check_output
+from subprocess import DEVNULL, PIPE, Popen, check_output
 from typing import Optional, Union
 
 from .exceptions import (
     FFmpegError,
     FFmpegFailedToExtractFrames,
     FFmpegNotFound,
-    FramesExtractorOutPutDirDoesNotExist,
+    FramesExtractorOutPutDirDoesNotExist
 )
-from .utils import does_path_exists
 
 # python module to extract the frames from the input video.
 # Uses the FFmpeg Software to extract the frames.
@@ -61,12 +60,12 @@ class FramesExtractor:
         if ffmpeg_path:
             self.ffmpeg_path = ffmpeg_path
 
-        if not does_path_exists(self.video_path):
+        if not os.path.exists(self.video_path):
             raise FileNotFoundError(
                 f"No video found at '{self.video_path}' for frame extraction."
             )
 
-        if not does_path_exists(self.output_dir):
+        if not os.path.exists(self.output_dir):
             raise FramesExtractorOutPutDirDoesNotExist(
                 f"No directory called '{self.output_dir}' found for storing the frames."
             )
@@ -86,15 +85,12 @@ class FramesExtractor:
         """
 
         if not self.ffmpeg_path:
-
             if not which("ffmpeg"):
-
                 raise FFmpegNotFound(
                     "FFmpeg is not on the system path. Install FFmpeg and add it to the path."
                     + "Or you can also pass the path via the 'ffmpeg_path' parameter."
                 )
             else:
-
                 self.ffmpeg_path = str(which("ffmpeg"))
 
         # Check the ffmpeg
@@ -106,7 +102,6 @@ class FramesExtractor:
             raise FFmpegNotFound(f"FFmpeg not found at '{self.ffmpeg_path}'.")
 
         else:
-
             if "ffmpeg version" not in output:
                 raise FFmpegError(
                     f"ffmpeg at '{self.ffmpeg_path}' is not really ffmpeg. Output of ffmpeg -version is \n'{output}'."
@@ -117,7 +112,7 @@ class FramesExtractor:
         video_path: Optional[str] = None,
         frames: int = 3,
         ffmpeg_path: Optional[str] = None,
-        video_length: float = 2
+        video_length: float = 2,
     ) -> list:
         """
         Detects the the amount of cropping to remove black bars.
@@ -148,12 +143,10 @@ class FramesExtractor:
             7200,
             14400,
         ]
-        
 
         crop_list = []
 
         for start_time in time_start_list:
-
             # Stopping the loop if we go beyond the end length of the video.
             # We round the video length up to make sure we do get the whole
             # video.
@@ -162,7 +155,9 @@ class FramesExtractor:
 
             command = f'"{ffmpeg_path}" -ss {start_time} -i "{video_path}" -vframes {frames} -vf cropdetect -f null -'
 
-            process = Popen(shlex.split(command), stdin=DEVNULL, stdout=PIPE, stderr=PIPE)
+            process = Popen(
+                shlex.split(command), stdin=DEVNULL, stdout=PIPE, stderr=PIPE
+            )
 
             output, error = process.communicate()
 
@@ -205,8 +200,10 @@ class FramesExtractor:
             output_dir = shlex.quote(self.output_dir)
 
         crop = FramesExtractor.detect_crop(
-            video_path=video_path, frames=3, ffmpeg_path=ffmpeg_path,
-            video_length=video_length
+            video_path=video_path,
+            frames=3,
+            ffmpeg_path=ffmpeg_path,
+            video_length=video_length,
         )
 
         command = [
@@ -218,7 +215,7 @@ class FramesExtractor:
             "144x144",
             "-r",
             str(self.interval),
-            str(output_dir)+"video_frame_%07d.jpeg",
+            str(output_dir) + "video_frame_%07d.jpeg",
         ]
 
         process = Popen(command, stdin=DEVNULL, stdout=PIPE, stderr=PIPE)
@@ -228,7 +225,6 @@ class FramesExtractor:
         ffmpeg_error = error.decode()
 
         if len(os.listdir(self.output_dir)) == 0:
-
             raise FFmpegFailedToExtractFrames(
                 f"FFmpeg could not extract any frames.\n{command}\n{ffmpeg_output}\n{ffmpeg_error}"
             )

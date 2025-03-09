@@ -1,0 +1,58 @@
+[project]
+name = "videohash2"
+version = "3.3.3"
+authors = [{ name = "Akash Mahanty" }, { name = "Chico Demmenie" }]
+description = "Python package for Near Duplicate Video Detection (Perceptual Video Hashing) - Get a 64-bit comparable hash-value for any video."
+readme = "README.md"
+license.file = "LICENSE"
+requires-python = ">=3.7"
+keywords = [
+  'videohash2',
+  'near duplicate video detection',
+  'NDVD',
+  'perceptual video hashing',
+  'video hashing',
+  'near duplicate video',
+  'compare videos',
+  'video',
+  'video diff',
+]
+classifiers = [
+  'Development Status :: 5 - Production/Stable',
+  'Intended Audience :: Developers',
+  'Intended Audience :: End Users/Desktop',
+  'Intended Audience :: Information Technology',
+  'Operating System :: MacOS',
+  'Operating System :: Microsoft :: Windows',
+  'Operating System :: POSIX',
+  'Operating System :: POSIX :: Linux',
+  'Operating System :: POSIX :: BSD',
+  'Topic :: Multimedia :: Video',
+  'Natural Language :: English',
+  'Topic :: Software Development :: Build Tools',
+  'Topic :: Scientific/Engineering :: Image Recognition',
+  'Typing :: Typed',
+  'License :: OSI Approved :: MIT License',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: Implementation :: CPython',
+]
+dependencies = ["Pillow", "ImageHash", "imagedominantcolour", "yt-dlp"]
+urls = { 'Source' = 'https://github.com/demmenie/videohash2', 'Documentation' = 'https://github.com/demmenie/videohash2/wiki', 'Tracker' = 'https://github.com/demmenie/videohash2/issues' }
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["videohash2/"]

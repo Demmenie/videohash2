@@ -8,7 +8,6 @@ from videohash2.utils import create_and_return_temporary_directory
 
 
 def test_all():
-
     image_list = []  # when no files(extracted frames) in frames directory
     output_path = create_and_return_temporary_directory()
     with pytest.raises(CollageOfZeroFramesError):

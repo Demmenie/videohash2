@@ -1,3 +1,4 @@
+import logging
 import os
 import random
 import shutil
@@ -13,13 +14,14 @@ from .collagemaker import MakeCollage
 from .framesextractor import FramesExtractor
 from .tilemaker import make_tile
 from .utils import (
+    _get_task_uid, 
     create_and_return_temporary_directory,
-    does_path_exists,
-    get_list_of_all_files_in_dir,
-    _get_task_uid
+    get_list_of_all_files_in_dir
 )
-from .videocopy import (_create_required_dirs_and_check_for_errors,
-    _copy_video_to_video_dir)
+from .videocopy import (
+    _copy_video_to_video_dir,
+    _create_required_dirs_and_check_for_errors
+)
 from .videoduration import video_duration
 
 
@@ -79,27 +81,27 @@ class VideoHash:
 
         self.task_uid = _get_task_uid()
 
-        (self.storage_path,
-         self.video_dir,
-         self.video_download_dir,
-         self.frames_dir,
-         self.tiles_dir,
-         self.collage_dir,
-         self.horizontally_concatenated_image_dir
+        (
+            self.storage_path,
+            self.video_dir,
+            self.video_download_dir,
+            self.frames_dir,
+            self.tiles_dir,
+            self.collage_dir,
+            self.horizontally_concatenated_image_dir,
         ) = _create_required_dirs_and_check_for_errors(
-            url=self.url,
-            path=self.path,
-            storage_path=self.storage_path
+            url=self.url, path=self.path, storage_path=self.storage_path
         )
 
         self.video_path = _copy_video_to_video_dir(
-             video_dir=self.video_dir,
-             video_download_dir=self.video_download_dir,
-             do_not_copy=self.do_not_copy,
-             download_worst=self.download_worst,
-             url=self.url,
-             path=self.path
-         )
+            video_dir=self.video_dir,
+            video_download_dir=self.video_download_dir,
+            do_not_copy=self.do_not_copy,
+            download_worst=self.download_worst,
+            url=self.url,
+            path=self.path,
+        )
+        assert os.path.exists(self.video_path)
 
         self.video_duration = video_duration(path=self.video_path)
 
@@ -238,16 +240,13 @@ class VideoHash:
             raise TypeError("Other hash is None. And it should not be None.")
 
         if isinstance(other, str):
-
             if other.lower().startswith("0x"):
-
                 return self.hamming_distance(
                     string_a=self.hash,
                     string_b=VideoHash.hex2bin(other.lower(), self.bits_in_hash),
                 )
 
             elif other.lower().startswith("0b"):
-
                 if len(other) != len(self.hash):
                     raise ValueError(
                         "Can not compare different bits hashes. You must supply a %d bits hash."
@@ -256,13 +255,11 @@ class VideoHash:
                 return self.hamming_distance(string_a=self.hash, string_b=other.lower())
 
             else:
-
                 raise TypeError(
                     "Hash string must start with either '0x' for hexadecimal or '0b' for binary."
                 )
 
         if isinstance(other, list):
-
             if len(other) != self.bits_in_hash:
                 raise ValueError(
                     f"The list does not have {self.bits_in_hash} bits. Can not calculate hamming distance."
@@ -354,7 +351,6 @@ class VideoHash:
                             not defined for unequal length strings.
         """
         if bitlist_a and bitlist_b:
-
             if len(bitlist_a) != len(bitlist_b):
                 raise ValueError(
                     "Bit lists have unequal number of bits."
@@ -365,7 +361,6 @@ class VideoHash:
             _bitlist_b = bitlist_b
 
         if string_a and string_b:
-
             if len(string_a) != len(string_b):
                 raise ValueError(
                     "Strings are of unequal length. Can not compute hamming distance. Hamming distance is undefined."
@@ -544,7 +539,6 @@ class VideoHash:
         self.hash: str = ""
 
         for bit in self.bitlist:
-
             if bit:
                 self.hash += "1"
             else:

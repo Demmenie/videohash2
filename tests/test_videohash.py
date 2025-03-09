@@ -10,7 +10,6 @@ this_dir = os.path.dirname(os.path.realpath(__file__))
 
 
 def test_all():
-
     source1 = (
         "https://raw.githubusercontent.com/demmenie/videohash2/main/assets/rocket.mkv"
     )
@@ -143,6 +142,7 @@ def test_all():
             create_and_return_temporary_directory(), "file_extension_less_video"
         )
         VideoHash(path=path)
+
 
 if __name__ == "__main__":
     test_all()
