@@ -39,7 +39,7 @@ def get_ffmpeg_url(build=None, format=None) -> str:
             if names[1]:
                 github_version = urllib.request.urlopen(
                     'https://www.gyan.dev/ffmpeg/builds/release-version').read().decode()
-                assert github_version, 'failed to retreive latest version from github'
+                assert github_version, 'failed to retrieve latest version from github'
                 return (
                     'https://github.com/GyanD/codexffmpeg/releases/download/'
                     f'{github_version}/ffmpeg-{github_version}-{names[1]}.{ffbuild_format}'

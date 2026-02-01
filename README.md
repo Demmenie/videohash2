@@ -10,7 +10,7 @@
 <a href="https://github.com/demmenie/videohash2/actions?query=workflow%3AmacOS"><img alt="Build Status" src="https://github.com/demmenie/videohash2/workflows/macOS/badge.svg"></a>
 <a href="https://pypi.org/project/videohash2/"><img alt="pypi" src="https://img.shields.io/pypi/v/videohash2.svg"></a>
 <a href="https://pepy.tech/project/videohash2?versions=1*&versions=2*&versions=3*"><img alt="Downloads" src="https://pepy.tech/badge/videohash2"></a>
-<a href="https://github.com/demmenie/videohash2/commits/main"><img alt="GitHub lastest commit" src="https://img.shields.io/github/last-commit/demmenie/videohash2?color=blue&style=flat-square"></a>
+<a href="https://github.com/demmenie/videohash2/commits/main"><img alt="GitHub latest commit" src="https://img.shields.io/github/last-commit/demmenie/videohash2?color=blue&style=flat-square"></a>
 <a href="#"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/videohash2?style=flat-square"></a>
 </p>
 
