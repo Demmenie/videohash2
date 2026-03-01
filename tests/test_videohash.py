@@ -17,15 +17,15 @@ def test_all():
     videohash1 = VideoHash(url=source1, frame_interval=3)
     hash1 = videohash1.hash
     hash_hex1 = videohash1.hash_hex
-    assert hash1 == "0b1010100110101001111111111111101101011110101100010000001100000011"
+    assert hash1 == "0b1010100110101001111111001111101101011110101100010000001000000000"
     assert (
         str(videohash1)
-        == "0b1010100110101001111111111111101101011110101100010000001100000011"
+        == "0b1010100110101001111111001111101101011110101100010000001000000000"
     )
-    assert hash_hex1 == "0xa9a9fffb5eb10303"
+    assert hash_hex1 == "0xa9a9fcfb5eb10200"
     assert (
         videohash1
-        - "0b1010100110101001111111111111101101011110101100010000001100000011"
+        - "0b1010100110101001111111001111101101011110101100010000001000000000"
         == 0
     )
     assert hash_hex1 in repr(videohash1)
@@ -59,16 +59,16 @@ def test_all():
     videohash2 = VideoHash(path=source2, frame_interval=3)
     hash2 = videohash2.hash
     hash_hex2 = videohash2.hash_hex
-    assert hash2 == "0b1010100110101001111111111111101101011110101100010000001100000011"
-    assert hash_hex2 == "0xa9a9fffb5eb10303"
+    assert hash2 == "0b1010100110101001111111001111101101011110101100010000001000000000"
+    assert hash_hex2 == "0xa9a9fcfb5eb10200"
 
     source3 = "https://www.youtube.com/watch?v=PapBjpzRhnA"
 
     videohash3 = VideoHash(url=source3)
     hash3 = videohash3.hash
     hash_hex3 = videohash3.hash_hex
-    assert hash3 == "0b0111110001010111111011111111111100101110111010000000001100000011"
-    assert hash_hex3 == "0x7c57efff2ee80303"
+    assert hash3 == "0b0111110001010111111011111111101100101110111010000000001100000011"
+    assert hash_hex3 == "0x7c57effb2ee80303"
 
     assert hash1 == hash2
     assert videohash1.is_similar(videohash2)
